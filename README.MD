@@ -14,44 +14,6 @@ A FastAPI-based REST API service for interacting with PuppyGraph Database.
 - Docker and Docker Compose (for containerized deployment)
 - PuppyGraph Database instance
 
-## Setting Up PuppyGraph Database
-
-PuppyGraph provides a graph database solution with supply chain sample data.
-
-### Prerequisites
-- Docker and Docker Compose
-- PostgreSQL client (for data loading)
-
-### Installation Steps
-
-1. Download the supply chain [dataset](https://raw.githubusercontent.com/izhanghongbo/puppygraph-graphxr-api/refs/heads/main/data/puppygraph.tar) package containing:
-   ```
-   |____docker-compose.yaml
-   |____csv_data/
-   |____postgres-schema.sql
-   |____schema.json
-   ```
-
-2. Start PuppyGraph services:
-   ```bash
-   docker compose -f docker-compose.yaml up -d
-   ```
-
-3. Load sample data into PostgreSQL:
-   ```bash
-   docker exec -it postgres psql -h postgres -U postgres
-   # Password: postgres123
-   
-   # At the psql prompt:
-   \i /tmp/postgres-schema.sql
-   ```
-
-4. Configure PuppyGraph:
-   - Visit http://localhost:8081/#/login
-   - Login credentials:
-     - Username: puppygraph
-     - Password: puppyheap3
-   - Upload the provided `schema.json` to configure the graph schema
 
 ## Installing the API Service
 
@@ -93,56 +55,6 @@ PuppyGraph provides a graph database solution with supply chain sample data.
    uvicorn main:app --host 0.0.0.0 --port 8000 --reload
    ```
 
-### 3. Using PuppyGraph
-
-PuppyGraph provides an alternative graph database solution with supply chain sample data.
-
-#### Prerequisites
-- Docker and Docker Compose
-- PostgreSQL client (for data loading)
-
-#### Installation Steps
-
-1. Download the supply chain dataset package containing:
-   ```
-   |____docker-compose.yaml
-   |____csv_data/
-   |____postgres-schema.sql
-   |____schema.json
-   ```
-
-2. Start PuppyGraph services:
-   ```bash
-   docker compose -f docker-compose.yaml up -d
-   ```
-
-3. Load sample data into PostgreSQL:
-   ```bash
-   docker exec -it postgres psql -h postgres -U postgres
-   # Password: postgres123
-   
-   # At the psql prompt:
-   \i /tmp/postgres-schema.sql
-   ```
-
-4. Configure PuppyGraph:
-   - Visit http://localhost:8081/#/login
-   - Login credentials:
-     - Username: puppygraph
-     - Password: puppyheap3
-   - Upload the provided `schema.json` to configure the graph schema
-
-#### Visualization Options
-
-1. **Using Grove** (as described in previous sections)
-
-2. **Using GraphXR with PuppyGraph**
-   - Visit https://alt.graphxr.kinevizlabs.com/
-   - Connect using the PuppyGraph database credentials
-   - Password: spaceheap3
-
-The supply chain dataset demonstrates various relationships between customers, products, materials, and locations. For more information about this dataset and PuppyGraph, visit [PuppyGraph Introduction](https://gdotv.com/2024/07/10/puppygraph-introduction/).
-
 ## Environment Variables
 
 | Variable | Description | Default |
@@ -159,7 +71,6 @@ The supply chain dataset demonstrates various relationships between customers, p
 - `GET /api/v1/puppygraph/schema` - Retrieve graph schema
 - `POST /api/v1/puppygraph/execute` - Execute graph queries
 - `GET /api/v1/puppygraph/samples` - Get sample queries
-- `GET /api/v1/puppygraph/graphs` - List available graphs
 
 ## Use Grove to interact with the API
 
@@ -190,5 +101,5 @@ The Grove interface provides an intuitive way to explore your graph data through
 
 2. download the grove file [puppy-graph.grove](https://raw.githubusercontent.com/izhanghongbo/ultipa-graphxr-api/main/puppy-graph.grove)
 3. open the grove tab and drag the code into the panel,you will see the grove's ui in the panel
-![Grove](https://raw.githubusercontent.com/izhanghongbo/ultipa-graphxr-api/main/images/grove.jpg)
+![Grove](https://raw.githubusercontent.com/izhanghongbo/puppygraph-graphxr-api/main/images/grove.jpg)
 
