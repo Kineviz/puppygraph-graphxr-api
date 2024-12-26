@@ -1,0 +1,25 @@
+samples:
+  - name: "Find 10 nodes and their relationships"
+    command: "MATCH (n)-[r]->(m) RETURN n, r, m LIMIT 10"
+    
+  - name: "Find product with highest total sales"
+    command: "MATCH (p:Product)<-[r:ProOrderToPro]-(po:ProductOrder)
+             WITH p, SUM(po.quantity) AS totalQuantity
+             ORDER BY totalQuantity DESC
+             LIMIT 1
+             MATCH (p)<-[r:ProOrderToPro]-(po:ProductOrder)
+             RETURN p, r, po"
+             
+  - name: "Find top 2 selling products with inventory status"
+    command: "MATCH (p:Product)<-[r:ProOrderToPro]-(po:ProductOrder)
+             WITH p, SUM(po.quantity) AS totalQuantity
+             ORDER BY totalQuantity DESC
+             LIMIT 2
+             MATCH (p)-[proInventory:ProductInventory]-(inventory:Inventory)
+             RETURN p, proInventory, inventory"
+             
+  - name: "Find products without any sales"
+    command: "MATCH (p:Product)
+             WHERE NOT (p)<-[:ProOrderToPro]-(:ProductOrder)
+             RETURN p
+             LIMIT 10"
