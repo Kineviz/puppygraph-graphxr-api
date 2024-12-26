@@ -2,18 +2,44 @@
 
 A FastAPI-based REST API service for interacting with PuppyGraph Database.
 
-## Features
-
-- Graph database schema retrieval
-- Query execution with support for nodes, edges, and paths
-- Sample queries management
-
 ## Prerequisites
 
 - Python 3.11+
-- Docker and Docker Compose (for containerized deployment)
+- Docker and Docker Compose
 - PuppyGraph Database instance
 
+## Installing PuppyGraph Database
+
+1. Download the supply-chain [dataset zip](https://raw.githubusercontent.com/izhanghongbo/puppygraph-graphxr-api/refs/heads/main/data/puppygraph.tar) file containing:
+   ```
+   |____docker-compose.yaml
+   |____csv_data/
+   |____postgres-schema.sql
+   |____schema.json
+   ```
+
+2. Start PuppyGraph and PostgreSQL using Docker Compose:
+   ```bash
+   docker compose up -d
+   ```
+
+3. Load the sample data into PostgreSQL:
+   ```bash
+   docker exec -it postgres psql -h postgres -U postgres
+   # Password: postgres123
+   
+   # Once connected, load the schema:
+   \i /tmp/postgres-schema.sql
+   ```
+
+4. Configure PuppyGraph:
+   - Visit http://localhost:8081/#/login
+   - Login with credentials:
+     - Username: puppygraph
+     - Password: puppyheap3
+   - Upload the schema.json file to configure the graph schema
+
+For more details about the supply-chain dataset, visit: https://gdotv.com/2024/07/10/puppygraph-introduction/
 
 ## Installing the API Service
 
