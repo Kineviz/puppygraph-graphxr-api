@@ -11,7 +11,8 @@ services:
       - ./samples.yaml:/app/samples.yaml
     environment:
       - SAMPLES_PATH=/app/samples.yaml
-      - NEO4J_URI=bolt://192.168.0.117:7687
+      - NEO4J_URI=bolt://127.0.0.1:7687
       - NEO4J_USER=puppygraph
       - NEO4J_PASSWORD=puppyheap3
     command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+
