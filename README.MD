@@ -1,6 +1,5 @@
-# PuppyGraph API
-
-A FastAPI-based REST API service for interacting with PuppyGraph Database.
+# GraphXR PuppyGraph Connector
+A FastAPI-based service that enables GraphXR to connect and visualize graph data stored in PuppyGraph Database. This API service acts as a bridge between GraphXR and PuppyGraph, allowing interactive graph data exploration and visualization.
 
 ## Prerequisites
 
