@@ -10,7 +10,7 @@ A FastAPI-based REST API service for interacting with PuppyGraph Database.
 
 ## Installing PuppyGraph Database
 
-1. Download the supply-chain [dataset zip](https://raw.githubusercontent.com/izhanghongbo/puppygraph-graphxr-api/refs/heads/main/data/puppygraph.tar) file containing:
+1. Download the supply-chain [dataset zip](https://raw.githubusercontent.com/Kineviz/puppygraph-graphxr-api/refs/heads/main/data/puppygraph.tar) file containing:
    ```
    |____docker-compose.yaml
    |____csv_data/
@@ -123,9 +123,9 @@ The Grove interface provides an intuitive way to explore your graph data through
 ### use your own project:
 
 1. create a new project https://graphxr.kineviz.com/  with a grove template
-![Create Project](https://raw.githubusercontent.com/izhanghongbo/puppygraph-graphxr-api/refs/heads/main/images/project-new.jpg)
+![Create Project](https://raw.githubusercontent.com/Kineviz/puppygraph-graphxr-api/refs/heads/main/images/project-new.jpg)
 
-2. download the grove file [puppy-graph.grove](https://raw.githubusercontent.com/izhanghongbo/puppygraph-graphxr-api/main/puppy-graph.grove)
+2. download the grove file [puppy-graph.grove](https://raw.githubusercontent.com/Kineviz/puppygraph-graphxr-api/main/puppy-graph.grove)
 3. open the grove tab and drag the code into the panel,you will see the grove's ui in the panel
-![Grove](https://raw.githubusercontent.com/izhanghongbo/puppygraph-graphxr-api/main/images/grove.jpg)
+![Grove](https://raw.githubusercontent.com/Kineviz/puppygraph-graphxr-api/main/images/grove.jpg)
 
