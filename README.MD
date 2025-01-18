@@ -55,7 +55,7 @@ For more details about the supply-chain dataset, visit: https://gdotv.com/2024/0
    - Enter a project name
    - Ensure "Keep Neo4j Instance" is unchecked
    - Click the "Confirm" button
-   ![create project](https://raw.githubusercontent.com/Kineviz/puppygraph-graphxr-api/refs/heads/main/images/project-new.jpg)
+   ![create project](https://raw.githubusercontent.com/Kineviz/puppygraph-graphxr-api/refs/heads/main/images/project_new.jpg)
 
 4. Configure Grove Extension
    - Open "Project" → "Extensions"
