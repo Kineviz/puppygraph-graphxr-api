@@ -9,29 +9,13 @@ A FastAPI-based service that enables GraphXR to connect and visualize graph data
 
 ## Installing PuppyGraph Database
 
-1. Download the supply-chain [dataset zip](https://raw.githubusercontent.com/Kineviz/puppygraph-graphxr-api/refs/heads/main/data/puppygraph.tar) file containing:
-   ```
-   |____docker-compose.yaml
-   |____csv_data/
-   |____postgres-schema.sql
-   |____schema.json
-   ```
-
+1. Clone the repository
 2. Start PuppyGraph and PostgreSQL using Docker Compose:
    ```bash
-   docker compose up -d
+   cd puppygraph && docker compose up -d
    ```
 
-3. Load the sample data into PostgreSQL:
-   ```bash
-   docker exec -it postgres psql -h postgres -U postgres
-   # Password: postgres123
-   
-   # Once connected, load the schema:
-   \i /tmp/postgres-schema.sql
-   ```
-
-4. Configure PuppyGraph:
+3. Configure PuppyGraph:
    - Visit http://localhost:8081/#/login
    - Login with credentials:
      - Username: puppygraph
@@ -82,12 +66,12 @@ For more details about the supply-chain dataset, visit: https://gdotv.com/2024/0
 
 ## Environment Variables
 
-| Variable | Description | Default |
-|----------|-------------|---------|
-| PUPPYGRAPH_HOST | PuppyGraph database host | localhost:8182 |
-| PUPPYGRAPH_USERNAME | Database username | puppygraph |
-| PUPPYGRAPH_PASSWORD | Database password | puppyheap3 |
-| SAMPLES_PATH | Path to samples configuration file | samples.yaml |
+| Variable            | Description                        | Default        |
+|---------------------|------------------------------------|----------------|
+| PUPPYGRAPH_HOST     | PuppyGraph database host           | localhost:8182 |
+| PUPPYGRAPH_USERNAME | Database username                  | puppygraph     |
+| PUPPYGRAPH_PASSWORD | Database password                  | puppyheap3     |
+| SAMPLES_PATH        | Path to samples configuration file | samples.yaml   |
 
 ## API Endpoints
 

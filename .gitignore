@@ -42,3 +42,5 @@ ENV/
 
 # Google Cloud
 credentials.json
+
+postgres-data/
