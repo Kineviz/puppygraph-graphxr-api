@@ -44,3 +44,6 @@ ENV/
 credentials.json
 
 postgres-data/
+graphxr
+mongo
+data

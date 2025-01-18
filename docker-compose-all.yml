@@ -1,0 +1,88 @@
+services:
+  puppygraph:
+    image: puppygraph/puppygraph:0.52
+    pull_policy: always
+    container_name: puppygraph
+    environment:
+      - PUPPYGRAPH_USERNAME=puppygraph
+      - PUPPYGRAPH_PASSWORD=puppyheap3
+      - GRAPH_FEATURES=feature.engine.enableCypherEngine:true
+    networks:
+      postgres_net:
+    ports:
+      - "8081:8081"
+      - "8182:8182"
+      - "7687:7687"
+      - "8182:8182"
+      - "8890:8890"
+  postgres:
+    image: postgres:14.1-alpine
+    container_name: postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres123
+    networks:
+      postgres_net:
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./puppygraph/postgres-data:/var/lib/postgresql/data
+      - ./puppygraph/csv_data:/tmp/csv_data:ro
+      - ./puppygraph/postgres-schema.sql:/docker-entrypoint-initdb.d/postgres-schema.sql
+  puppygraph-graphxr-service:
+    build:
+      context: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+      - ./samples.yaml:/app/samples.yaml
+    environment:
+      - SAMPLES_PATH=/app/samples.yaml
+      - NEO4J_URI=bolt://puppygraph:7687
+      - NEO4J_USER=puppygraph
+      - NEO4J_PASSWORD=puppyheap3
+    networks:
+      - postgres_net 
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+
+  mongo:
+    image: mongo:4.0.28
+    container_name: graphxr_mongo
+    volumes:
+      - "./mongo/db:/data/db:rw"
+      - "./mongo/backup:/backup:rw"
+    restart: always
+
+  graphxr_whoami:
+    image: kineviz/graphxr_trial:whoami
+    container_name: graphxr_whoami
+    volumes:
+      - whoami-volume:/whoAmI:rw
+    restart: always
+    network_mode: host
+
+  graphxr:
+    image: kineviz/graphxr_trial:latest
+    container_name: graphxr
+    ports:
+      - "9000:9000"
+    volumes:
+      - whoami-volume:/whoAmI:r
+      - "./graphxr:/data:rw"
+    environment:
+      - "PORT=9000"
+      - "ADMIN_EMAIL=graphxr@kineviz.com"
+      - "ADMIN_PASSWORD=puppyheap3"
+      - "MONGO_URL=mongodb://mongo/graphxr"
+    depends_on:
+      - mongo
+      - graphxr_whoami
+    restart: always
+
+volumes:
+  whoami-volume: {} 
+
+networks:
+  postgres_net:
+    name: puppy-postgres
