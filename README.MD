@@ -34,12 +34,13 @@ For more details about the supply-chain dataset, visit: https://gdotv.com/2024/0
 
 1. Login to GraphXR Application
    - Navigate to http://localhost:9000
+   - Fill the form to try GraphXR
+      ![try graphxr](https://raw.githubusercontent.com/Kineviz/puppygraph-graphxr-api/refs/heads/main/images/try_graphxr.jpg)
    - Enter the following credentials:
      ```
      Username: graphxr@kineviz.com
      Password: puppyheap3
      ```
-   ![try graphxr](https://raw.githubusercontent.com/Kineviz/puppygraph-graphxr-api/refs/heads/main/images/try_graphxr.jpg)
 
 2. Install Grove Plugin
    - Visit http://localhost:9000/admin
