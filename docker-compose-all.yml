@@ -6,15 +6,20 @@ services:
     environment:
       - PUPPYGRAPH_USERNAME=puppygraph
       - PUPPYGRAPH_PASSWORD=puppyheap3
+      - SCHEMA_PATH=/etc/config/puppygraph/schema.json
       - GRAPH_FEATURES=feature.engine.enableCypherEngine:true
     networks:
       postgres_net:
+    depends_on:
+      - postgres
     ports:
       - "8081:8081"
       - "8182:8182"
       - "7687:7687"
       - "8182:8182"
       - "8890:8890"
+    volumes:
+      - ./puppygraph/schema.json:/etc/config/puppygraph/schema.json
   postgres:
     image: postgres:14.1-alpine
     container_name: postgres
@@ -29,6 +34,11 @@ services:
       - ./puppygraph/postgres-data:/var/lib/postgresql/data
       - ./puppygraph/csv_data:/tmp/csv_data:ro
       - ./puppygraph/postgres-schema.sql:/docker-entrypoint-initdb.d/postgres-schema.sql
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-U", "user", "-h", "127.0.0.1" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
   puppygraph-graphxr-service:
     build:
       context: .

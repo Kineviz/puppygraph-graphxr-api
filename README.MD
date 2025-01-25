@@ -18,15 +18,9 @@ A FastAPI-based service that enables GraphXR to connect and visualize graph data
    docker compose -f docker-compose-all.yml up -d
    ```
    This command starts PuppyGraph, PostgreSQL service, and the GraphXR Application.
+   It also loads the supply-chain dataset into PostgreSQL and configures the PuppyGraph instance to build a graph on top of the data.
 
    Note: To use your own dataset, modify the `docker-compose-all.yml` file accordingly.
-
-3. Configure PuppyGraph:
-   - Navigate to http://localhost:8081/#/login
-   - Login with the following credentials:
-     - Username: `puppygraph`
-     - Password: `puppyheap3`
-   - Upload the `schema.json` file to configure the graph schema
 
 For more details about the supply-chain dataset, visit: https://gdotv.com/2024/07/10/puppygraph-introduction/
 
