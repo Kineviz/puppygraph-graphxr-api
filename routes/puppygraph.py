@@ -17,7 +17,7 @@ load_dotenv()
 router = APIRouter()
 
 # Initialize Neo4j connection
-uri = os.getenv('NEO4J_URI', 'bolt://puppiygraph:7687')
+uri = os.getenv('NEO4J_URI', 'bolt://puppygraph:7687')
 username = os.getenv('NEO4J_USER', 'puppygraph')
 password = os.getenv('NEO4J_PASSWORD', 'puppygraph123')
 
