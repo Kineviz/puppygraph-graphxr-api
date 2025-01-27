@@ -4,7 +4,7 @@ from pydantic import BaseModel
 import os
 from neo4j import GraphDatabase
 import yaml
-import json
+from neo4j.time import DateTime, Date, Time
 from dotenv import load_dotenv
 
 class ExecuteRequest(BaseModel):
@@ -16,7 +16,7 @@ load_dotenv()
 
 router = APIRouter()
 
-# # Initialize Neo4j connection
+# Initialize Neo4j connection
 uri = os.getenv('NEO4J_URI', 'bolt://puppygraph:7687')
 username = os.getenv('NEO4J_USER', 'puppygraph')
 password = os.getenv('NEO4J_PASSWORD', 'puppygraph123')
@@ -24,13 +24,25 @@ password = os.getenv('NEO4J_PASSWORD', 'puppygraph123')
 # Create connection
 driver = GraphDatabase.driver(uri, auth=(username, password))
 
+def _process_value(value):
+    if isinstance(value, DateTime):
+        return value.iso_format()
+    elif isinstance(value, Date):
+        return value.iso_format()
+    elif isinstance(value, Time):
+        return value.iso_format()
+    elif isinstance(value, (list, tuple)):
+        return [_process_value(item) for item in value]
+    elif isinstance(value, dict):
+        return {key: _process_value(val) for key, val in value.items()}
+    else:
+        return value
+
 @router.get("/schema")
 async def get_schema(request: Request):
     try:
         with driver.session() as session:
-            # Get node labels
             node_labels = session.run("CALL db.labels()").data()
-            # Get relationship types
             rel_types = session.run("CALL db.relationshipTypes()").data()
             
             nodes = [label['label'] for label in node_labels]
@@ -53,29 +65,27 @@ async def execute(request: ExecuteRequest):
         
         with driver.session() as session:
             result = session.run(command)
-            # Initialize graph data structure
             graph_data = {
                 "nodes": [],
                 "edges": []
             }
             
-            # Process results
             for record in result:
                 for value in record.values():
-                    if hasattr(value, 'labels'):  # Node
+                    if hasattr(value, 'labels'):
                         node = {
                             "id": value.element_id,
                             "category": list(value.labels)[0] if value.labels else "Node",
-                            "properties": dict(value._properties)
+                            "properties": _process_value(dict(value._properties))
                         }
                         graph_data["nodes"].append(node)
-                    elif hasattr(value, 'type'):  # Relationship
+                    elif hasattr(value, 'type'):
                         edge = {
                             "id": value.element_id,
                             "name": value.type,
                             "sourceId": value.start_node.element_id,
                             "targetId": value.end_node.element_id,
-                            "properties": dict(value._properties)
+                            "properties": _process_value(dict(value._properties))
                         }
                         graph_data["edges"].append(edge)
                         

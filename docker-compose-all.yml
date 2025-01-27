@@ -1,13 +1,12 @@
 services:
   puppygraph:
-    image: puppygraph/puppygraph:0.52
-    pull_policy: always
+    image: puppygraph/puppygraph:0.54
     container_name: puppygraph
     environment:
       - PUPPYGRAPH_USERNAME=puppygraph
       - PUPPYGRAPH_PASSWORD=puppyheap3
       - SCHEMA_PATH=/etc/config/puppygraph/schema.json
-      - GRAPH_FEATURES=feature.engine.enableCypherEngine:true
+      - GRAPH_FEATURES=feature.engine.enableCypherEngineProperties:true
     networks:
       postgres_net:
     depends_on:
