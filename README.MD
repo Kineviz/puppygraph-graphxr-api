@@ -1,3 +1,6 @@
+> [!WARNING]
+> **Deprecated**: Since GraphXR now natively supports PuppyGraph, this Grove plugin integration will no longer be maintained. For the GraphXR + PuppyGraph experience, please refer to: https://github.com/Kineviz/graphxr-lite/blob/master/README.md
+
 # GraphXR PuppyGraph Connector
 A FastAPI-based service that enables GraphXR to connect and visualize graph data stored in PuppyGraph Database. This API service acts as a bridge between GraphXR and PuppyGraph, allowing interactive graph data exploration and visualization.
 
